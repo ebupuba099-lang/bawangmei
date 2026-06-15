@@ -1,0 +1,38 @@
+[
+  {"issue":"26155","numbers":"48547","time":"2026-06-14 21:25:00"},
+  {"issue":"26154","numbers":"47386","time":"2026-06-13 21:25:00"},
+  {"issue":"26153","numbers":"38949","time":"2026-06-12 21:25:00"},
+  {"issue":"26152","numbers":"15148","time":"2026-06-11 21:25:00"},
+  {"issue":"26151","numbers":"98394","time":"2026-06-10 21:25:00"},
+  {"issue":"26150","numbers":"34071","time":"2026-06-09 21:25:00"},
+  {"issue":"26149","numbers":"32533","time":"2026-06-08 21:25:00"},
+  {"issue":"26148","numbers":"06562","time":"2026-06-07 21:25:00"},
+  {"issue":"26147","numbers":"59053","time":"2026-06-06 21:25:00"},
+  {"issue":"26146","numbers":"15492","time":"2026-06-05 21:25:00"},
+  {"issue":"26145","numbers":"99300","time":"2026-06-04 21:25:00"},
+  {"issue":"26144","numbers":"46265","time":"2026-06-03 21:25:00"},
+  {"issue":"26143","numbers":"74400","time":"2026-06-02 21:25:00"},
+  {"issue":"26142","numbers":"91617","time":"2026-06-01 21:25:00"},
+  {"issue":"26141","numbers":"21582","time":"2026-05-31 21:25:00"},
+  {"issue":"26140","numbers":"42178","time":"2026-05-30 21:25:00"},
+  {"issue":"26139","numbers":"19811","time":"2026-05-29 21:25:00"},
+  {"issue":"26138","numbers":"26356","time":"2026-05-28 21:25:00"},
+  {"issue":"26137","numbers":"54436","time":"2026-05-27 21:25:00"},
+  {"issue":"26136","numbers":"46623","time":"2026-05-26 21:25:00"}
+]
+{
+  "source": "fallback",
+  "lastUpdate": 1781424000000,
+  "data": [
+    {"issue":"26154","openTime":"2026-06-13","week":"星期六","digits":[4,7,3,8,6],"headTail":{"first":4,"fourth":8,"key":"48"}},
+    {"issue":"26153","openTime":"2026-06-12","week":"星期五","digits":[3,8,9,4,9],"headTail":{"first":3,"fourth":4,"key":"34"}},
+    {"issue":"26152","openTime":"2026-06-11","week":"星期四","digits":[1,5,1,4,8],"headTail":{"first":1,"fourth":4,"key":"14"}},
+    {"issue":"26151","openTime":"2026-06-10","week":"星期三","digits":[2,7,1,6,9],"headTail":{"first":2,"fourth":6,"key":"26"}},
+    {"issue":"26150","openTime":"2026-06-09","week":"星期二","digits":[5,0,1,6,3],"headTail":{"first":5,"fourth":6,"key":"56"}},
+    {"issue":"26149","openTime":"2026-06-08","week":"星期一","digits":[9,6,8,3,5],"headTail":{"first":9,"fourth":3,"key":"93"}},
+    {"issue":"26148","openTime":"2026-06-07","week":"星期日","digits":[3,1,0,6,0],"headTail":{"first":3,"fourth":6,"key":"36"}},
+    {"issue":"26147","openTime":"2026-06-06","week":"星期六","digits":[7,4,9,2,1],"headTail":{"first":7,"fourth":2,"key":"72"}},
+    {"issue":"26146","openTime":"2026-06-05","week":"星期五","digits":[0,3,5,2,7],"headTail":{"first":0,"fourth":2,"key":"02"}},
+    {"issue":"26145","openTime":"2026-06-04","week":"星期四","digits":[8,3,8,6,1],"headTail":{"first":8,"fourth":6,"key":"86"}}
+  ]
+}
