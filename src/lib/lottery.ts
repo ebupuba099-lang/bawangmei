@@ -2,33 +2,10 @@ import type { HeadTailCombo, LotteryDraw, HitRecord } from './types';
 
 /** Mulberry32 种子随机数生成器 */
 export function mulberry32(seed: number): () => number {
+  let s = seed | 0;
   return function () {
-    let t = (seed += 0x6d2b79f5);
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-export interface HeadTailPick {
-  first: number;
-  fourth: number;
-  key: string; // e.g. "4x6" = first=4, fourth=6
-  pattern: string; // e.g. "4xx6" = display format
-  id: string; // e.g. "4x6" = same as key
-}
-
-// 日期种子：精确到"日"，同一天内种子不变
-export function getDateSeed(): number {
-  const d = new Date();
-  const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-  return dateStr.split('-').reduce(
-    (acc, part) => (acc * 31 + parseInt(part, 10)) | 0,
-    0,
-  );
-}
-
-function mulberry32(seed: number) {
-  return function () {
-    seed |= 0;
-    seed = (seed + 0x6d2b79f5) | 0;
-    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    s = (s + 0x6d2b79f5) | 0;
+    let t = Math.imul(s ^ (s >>> 15), 1 | s);
     t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
@@ -114,47 +91,6 @@ export function layoutGrid(combos: HeadTailCombo[]): HeadTailCombo[][] {
   return rows;
 }
 
-/** localStorage 操作工具 */
-const STORAGE_KEYS = {
-  picks: 'sssc_picks_v3',
-  history: 'sssc_history_v3',
-} as const;
-
-export function loadFromStorage<T>(key: string): T | null {
-  if (typeof window === 'undefined') return null;
-  try {
-    const raw = localStorage.getItem(key);
-    return raw ? (JSON.parse(raw) as T) : null;
-  } catch {
-    return null;
-  }
-}
-
-export function saveToStorage<T>(key: string, data: T): void {
-  if (typeof window === 'undefined') return;
-  try {
-    localStorage.setItem(key, JSON.stringify(data));
-  } catch {
-    // localStorage 满时静默失败
-  }
-}
-
-export function loadPicks(): HeadTailCombo[] | null {
-  return loadFromStorage<HeadTailCombo[]>(STORAGE_KEYS.picks);
-}
-
-export function savePicks(combos: HeadTailCombo[]): void {
-  saveToStorage(STORAGE_KEYS.picks, combos);
-}
-
-export function loadHistory(): HitRecord[] | null {
-  return loadFromStorage<HitRecord[]>(STORAGE_KEYS.history);
-}
-
-export function saveHistory(records: HitRecord[]): void {
-  saveToStorage(STORAGE_KEYS.history, records);
-}
-
 /** 更新 combo 的命中状态并保存 */
 export function updateCombosWithHits(
   combos: HeadTailCombo[],
@@ -164,44 +100,4 @@ export function updateCombosWithHits(
     ...combo,
     hit: checkHit(combo, draw.numbers),
   }));
-}
-
-/** 合并新的命中记录（去重，最多20条） */
-export function mergeHitRecords(
-  existing: HitRecord[],
-  newRecords: HitRecord[]
-): HitRecord[] {
-  const seen = new Set(existing.map((r) => `${r.issue}-${r.combo}`));
-  const combined = [...existing];
-  for (const record of newRecords) {
-    const key = `${record.issue}-${record.combo}`;
-    if (!seen.has(key)) {
-      seen.add(key);
-      combined.unshift(record);
-    }
-  }
-  return combined.slice(0, 20);
-}
-// 生成 N 组随机头尾（mulberry32 日期种子）
-export function generatePicks(total: number, seed: number): HeadTailPick[] {
-  const rand = mulberry32(seed);
-  const pool: HeadTailPick[] = [];
-  for (let first = 0; first <= 9; first++) {
-    for (let fourth = 0; fourth <= 9; fourth++) {
-      const key = `${first}x${fourth}`;
-      pool.push({ first, fourth, key, pattern: `${first}xx${fourth}`, id: key });
-    }
-  }
-  const shuffled = [...pool].sort(() => rand() - 0.5);
-  return shuffled
-    .slice(0, total)
-    .sort((a, b) => a.first - b.first || a.fourth - b.fourth);
-}
-
-// 判断某注是否命中某期（第 1 位 = first，第 4 位 = fourth）
-export function matchPick(
-  pick: HeadTailPick,
-  issue: { digits: number[] },
-): boolean {
-  return pick.first === issue.digits[0] && pick.fourth === issue.digits[3];
 }
